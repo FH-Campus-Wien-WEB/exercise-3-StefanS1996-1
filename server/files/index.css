@@ -8,6 +8,7 @@ h1 {
 /* Constrain the page to the viewport */
 html, body {
   height: 100vh;
+  margin: 0; /*Verringert unnötige Scrollbar aus Angabe Hint*/
 }
 
 /* Center the nav's header and list */
@@ -30,21 +31,110 @@ ul {
 }
 
 /* Task 2.1. Lay out the childs of the 'body' using Grid Template Areas. */
+/* für Handy ansicht*/
+body { 
+  display: grid;
+  grid-template-areas:
+  "h"
+  "n"
+  "m"
+  "f"
+  ;
+  grid-template-rows: auto auto 1fr auto;
+  grid-template-columns: 1fr;
+  
+}
+/* für breitere bildschirme */
+@media (min-width: 768px){
+  body{
+    grid-template-areas:
+    "h h"
+    "n m"
+    "f f";
+    grid-template-rows: auto 1fr auto;
+    grid-template-columns: 200px 1fr; /*dadurch ist die navigation links fest und rechts flexibel */
+  }
+}
+/* Zuweisung der Bereiche */
+header { grid-area: h; }
+nav    { grid-area: n; }
+footer { grid-area: f; }
+
+main   { 
+  grid-area: m; 
+  overflow-y: auto; /* Sorgt dafür, dass nur die Filmliste scrollt */
+}
+
+
 
 
 /* Task 3.1. Make the header element a flex container and center its children
    vertically and horizontally.
  */
+ header {
+  display: flex;
+  justify-content: center; /* Horizontal zentrieren */
+  align-items: center;     /* Vertikal zentrieren */
+  background-image: url('images/header-background.jpg');    /* Bild */
+  background-size: cover;
+  background-position: center;
+  color: white;
+  min-height: 100px;
+
+  padding: 20px 0;
+}
+
+header h1 {
+  font-size: 3rem;
+  margin: 0;
+}
 
 
 /* Task 3.2. Make the list items of the unordered list in the nav element a flex container, 
    use column direction and center the child items
  */
+ nav ul li {
+  display: flex;
+  flex-direction: column;  /* Buttons sollen untereinander sein */
+  gap: 10px;               /* Abstand zwischen Buttons */
+  width: 90%;              /* Platz für Rändder */
+}
+nav button {
+  padding: 10px;
+  cursor: pointer;
+}
 
 /* Task 3.3. Make the main element a Flexbox container */
-
+main {
+  display: flex;
+  flex-wrap: wrap;         /* Zeilenumbruchfalls zu wenig Platz */
+  gap: 20px;               /* Abstand zwischen den Filmen */
+  justify-content: center; /* Filme mittig ausrichten */
+  padding: 20px;
+}
 
 /* Task 3.4. Make the footer's ul a Flexbox container */
+footer {
+  display: flex;
+  flex-direction: column;  /* Inhalt untereinander */
+  align-items: center;     /* Horizontal zentrieren */
+  padding: 20px;
+  background-color: #333;
+  color: #acc;
+  font-size: 0.9rem;
+  grid-area: f;
+}
+
+footer a {
+  color: #a5b83b;         
+  text-decoration: none;
+  font-weight: bold;
+}
+
+footer a:hover {
+  text-decoration: underline;
+}
+
 
 
 /* From here on styling from exercise 1 */
